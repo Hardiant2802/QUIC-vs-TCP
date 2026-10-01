@@ -1,0 +1,49 @@
+# Generated experiments, packet captures, and TLS key logs
+/data/
+/pcaps/
+*.pcap
+*.pcapng
+*.keys
+
+# Build and generated migration client
+/build/
+/tools/ngtcp2-week8/
+
+# Week 8 source allowlist
+/configs/
+/plots/
+/experiment-log.md
+/NguyenManhHa-23020531-Tuan02.zip
+/docs/*
+!/docs/week-08/
+/docs/week-08/*
+!/docs/week-08/README.md
+!/docs/week-08/KIEM-THU.md
+/scripts/*
+!/scripts/run-experiment.sh
+!/scripts/setup-week8-migration.sh
+!/scripts/week8-analyze.py
+!/scripts/week8-run.py
+/server-files/*
+!/server-files/objects/
+!/server-files/week6-large.bin
+/server-files/objects/*
+!/server-files/objects/object-*.bin
+/tools/*
+!/tools/caddy-week6/
+!/tools/curl-h3/
+/tools/caddy-week6/*
+!/tools/caddy-week6/caddy
+/tools/curl-h3/share/
+/tools/curl-h3/bin/*
+!/tools/curl-h3/bin/curl
+/tools/curl-h3/lib/*.a
+/tools/curl-h3/lib/*.la
+
+# Python and local environments
+__pycache__/
+*.py[cod]
+.venv/
+*.bak
+*.before
+*.before-*
