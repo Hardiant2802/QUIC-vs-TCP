@@ -38,7 +38,7 @@ Các chế độ `baseline`, `loss` và `sweep` không cần bước này. Khi c
 Các lệnh dưới ghi đầy đủ tham số áp dụng cho từng bài. Kết quả nằm trong thư mục `--out`.
 Khi chạy lại, đổi tên thư mục từ `-01` sang `-02`… vì script không ghi đè thư mục đã tồn tại.
 
-Công cụ có 4 bài đo: `baseline` (tuần 3), `loss` (tuần 5), `migration` (tuần 6) và `sweep` (tuần 7). `all` chạy cả 4 bài. Tuần 4 dùng pcap của bài tuần 3 để tự phân tích bằng Wireshark, không có chế độ chạy riêng.
+Công cụ có 4 bài đo: `baseline` (tuần 3), `loss` (tuần 5), `migration` (tuần 6) và `sweep` (tuần 7). `all` chạy cả 4 bài.
 
 ## 1. Baseline — tuần 3
 
@@ -57,29 +57,6 @@ sudo bash scripts/run-experiment.sh \
 
 **Kết quả:** `data/week8/baseline-01/summary.csv` và đồ thị trong `baseline/`.
 So sánh thời gian tải HTTP/2 và HTTP/3 khi không thêm trễ, mất gói hay giới hạn băng thông.
-
-### Tuần 4 — phân tích pcap của tuần 3 bằng Wireshark
-
-Không chạy thêm một bài đo. Sau khi chạy `baseline` ở trên, mở:
-
-- HTTP/2: `data/week8/baseline-01/baseline/loss-0/h2/run-001/capture.pcap`.
-- HTTP/3: `data/week8/baseline-01/baseline/loss-0/h3/run-001/capture.pcap`.
-
-Dùng `tls.keys` trong **cùng thư mục lượt đo** làm tệp khóa TLS để giải mã.
-Với `--pcap first`, công cụ bắt gói từ đầu lượt đo thứ nhất của mỗi giao thức;
-với `--pcap all`, mọi lượt đo đều có pcap.
-
-Trên Wireshark, tự thực hiện:
-
-1. Định vị gói QUIC Initial và thêm chú thích.
-2. Xác định 20 stream yêu cầu tải tệp trên mỗi kết nối, phân biệt với stream điều khiển.
-3. Chọn và ghi rõ frame bắt đầu/kết thúc của TCP, TCP + TLS và QUIC; lấy hiệu thời điểm để đo thời gian thiết lập kết nối. Phân biệt thời gian đo thực tế với số vòng RTT của chuỗi bắt tay.
-4. Lưu một bản `.pcapng` có chú thích để giữ nguyên pcap gốc.
-
-`packets.tsv` xuất các trường gói tin; `packet-checks.csv` liệt kê và đếm stream
-để hỗ trợ đối chiếu. Công cụ không tự chọn mốc đo bắt tay, tính thời gian bắt tay
-hoặc thêm chú thích vào pcap. Thời gian tải trong `summary.csv` không phải thời gian bắt tay.
-Các số frame và thời gian phải đọc từ bản bắt gói đang phân tích, không sao chép từ lần chạy khác.
 
 ## 2. Mất gói và HOL blocking — tuần 5
 
