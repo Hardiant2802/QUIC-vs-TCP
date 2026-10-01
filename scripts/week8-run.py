@@ -449,7 +449,9 @@ def preflight(a):
     if a.mode in ("migration", "all"):
         if not GTLS.is_file():
             raise RuntimeError("Thiếu gtlsclient; chạy bash scripts/setup-week8-migration.sh trước.")
-        run([GTLS, "--help"])
+        env = dict(os.environ)
+        env["LD_LIBRARY_PATH"] = f"{ROOT / 'tools/ngtcp2-week8/lib'}:{ROOT / 'tools/curl-h3/lib'}" + (f":{env['LD_LIBRARY_PATH']}" if env.get("LD_LIBRARY_PATH") else "")
+        run([GTLS, "--help"], env=env)
         if not (ROOT / "server-files/week6-large.bin").is_file():
             raise RuntimeError("Thiếu server-files/week6-large.bin của tuần 6")
 
