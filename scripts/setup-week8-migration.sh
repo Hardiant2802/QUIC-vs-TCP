@@ -7,7 +7,7 @@ SHA256=367cbcecaca539f76453c49454d8e7b38ecb162acf89cd571535ac4acf82a2b4
 PREFIX="$ROOT/tools/ngtcp2-week8"
 BUILD="$ROOT/build/week8"
 if [[ -x "$PREFIX/bin/gtlsclient" ]]; then
-    "$PREFIX/bin/gtlsclient" --help >/dev/null
+    LD_LIBRARY_PATH="$ROOT/tools/curl-h3/lib${LD_LIBRARY_PATH:+$LD_LIBRARY_PATH}" "$PREFIX/bin/gtlsclient" --help >/dev/null
     echo "Đã có gtlsclient: $PREFIX/bin/gtlsclient"
     exit 0
 fi
@@ -35,5 +35,5 @@ make -j2 > ../make.log 2>&1
 make install > ../install.log 2>&1
 mkdir -p "$PREFIX/bin"
 ./libtool --mode=install install examples/gtlsclient "$PREFIX/bin/gtlsclient"
-"$PREFIX/bin/gtlsclient" --help >/dev/null
+LD_LIBRARY_PATH="$ROOT/tools/curl-h3/lib${LD_LIBRARY_PATH:+$LD_LIBRARY_PATH}" "$PREFIX/bin/gtlsclient" --help >/dev/null
 echo "Đã cài: $PREFIX/bin/gtlsclient"
