@@ -145,7 +145,6 @@ sudo bash scripts/run-experiment.sh \
 
 **Kết quả:** `data/week8/all-do-01/`, gồm bảng tổng hợp chung và bốn thư mục
 `baseline/`, `loss/`, `sweep/`, `migration/`.
-Dùng pcap trong `baseline/` để phân tích tuần 4 bằng Wireshark.
 Baseline luôn dùng loss=0, delay=0ms; sweep dùng `--loss-list`; migration dùng `--migration-rate` và chỉ chạy một cặp đối chiếu.
 
 ## Đọc các file kết quả
