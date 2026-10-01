@@ -151,7 +151,7 @@ Baseline luôn dùng loss=0, delay=0ms; sweep dùng `--loss-list`; migration dù
 
 | File | Dùng để làm gì? |
 |---|---|
-| `status.json` | Xem quy trình đã hoàn tất (`completed`), bị ngắt hoặc gặp lỗi. Hoàn tất quy trình vẫn có thể có lượt tải thất bại. |
+| `status.json` | Xem quy trình đã hoàn tất (`completed` or `completed_with_pcap_warnings`), bị ngắt hoặc gặp lỗi. Hoàn tất quy trình vẫn có thể có lượt tải thất bại. |
 | `validation.json`, `packet-checks.csv` | Xem số lượt thành công/thất bại, lỗi điều kiện đo và kiểm tra giải mã pcap. |
 | `summary.csv` | Đọc min, p50, p95 và tỉ lệ thất bại của mỗi giao thức/điều kiện. |
 | `runs.csv`, `objects.csv` | Xem chi tiết từng lượt đo và từng đối tượng tải. |

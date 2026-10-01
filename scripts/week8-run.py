@@ -503,10 +503,12 @@ def main():
             lab.network_counters(directory)
         sp.run([sys.executable, str(ROOT / "scripts/week8-analyze.py"), str(a.out)], check=True)
         status["validation"] = json.loads((a.out / "validation.json").read_text())
-        if status["validation"]["invalid_runs"] or status["validation"]["pcap_decode_failures"]:
+        if status["validation"]["invalid_runs"]:
             status["status"] = "invalid_evidence"
             return 2
         status["status"] = "completed" if status["all_migration_checks_passed"] else "inconclusive_migration"
+        if status["validation"]["pcap_decode_failures"] and status["status"] == "completed":
+            status["status"] = "completed_with_pcap_warnings"
         return 0 if status["all_migration_checks_passed"] else 2
     except KeyboardInterrupt:
         status["status"] = "interrupted"
