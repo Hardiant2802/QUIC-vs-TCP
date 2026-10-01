@@ -1,14 +1,10 @@
-# Lệnh chạy thí nghiệm tuần 8
+# QUIC-vs-TCP: hướng dẫn cài đặt và chạy thí nghiệm tuần 8
 
-Mở terminal Ubuntu/WSL:
-
-```bash
-cd ~/QUIC-vs-TCP
-```
+Hướng dẫn này dành cho Ubuntu/WSL2. Thực hiện các bước theo thứ tự: cài công cụ hệ thống, clone repo, vào thư mục repo, rồi mới chạy các bài đo.
 
 ## Cài đặt trên Ubuntu/WSL2
 
-Cài các lệnh mạng và thư viện Python dùng cho các phép đo, cùng công cụ biên dịch cần thiết nếu chạy bài chuyển mạng:
+Mở terminal Ubuntu/WSL và cài các lệnh mạng, thư viện Python cùng công cụ biên dịch cần thiết cho bài migration:
 
 ```bash
 sudo apt update
@@ -18,20 +14,26 @@ sudo apt install -y \
   curl tar make g++ pkg-config libgnutls28-dev libev-dev
 ```
 
-Clone kho mã nguồn và vào thư mục dự án:
+## Clone kho mã nguồn
+
+Clone kho mã nguồn rồi vào thư mục dự án. Các lệnh chạy thí nghiệm bên dưới đều thực hiện từ thư mục này:
 
 ```bash
 git clone https://github.com/Hardiant2802/QUIC-vs-TCP.git ~/QUIC-vs-TCP
 cd ~/QUIC-vs-TCP
 ```
 
-Runner dùng Caddy, curl hỗ trợ HTTP/3 và dữ liệu thử nghiệm đã được lưu trong kho. Nếu chạy `migration` hoặc `all`, biên dịch client ngtcp2 một lần bằng tài khoản thường, không dùng `sudo`:
+Kho mã nguồn đã kèm Caddy, curl hỗ trợ HTTP/3 và dữ liệu thử nghiệm, nên các chế độ không cần biên dịch client migration có thể chạy ngay sau khi cài gói hệ thống.
+
+## Chuẩn bị client bài migration
+
+Chỉ cần bước này nếu chạy `migration` hoặc `all`. Helper tải ngtcp2 v1.16.0, kiểm tra SHA-256 và biên dịch `gtlsclient` trong repo. Chạy bằng tài khoản thường, không thêm `sudo`:
 
 ```bash
 bash scripts/setup-week8-migration.sh
 ```
 
-Các chế độ `baseline`, `loss` và `sweep` không cần cài client migration. Khi chạy phép đo, gọi runner bằng `sudo` để nó tạo namespace và cấu hình `tc`.
+Các chế độ `baseline`, `loss` và `sweep` không cần bước này. Khi chạy phép đo, gọi runner bằng `sudo` để nó tạo network namespace và cấu hình `tc`.
 
 Các lệnh dưới ghi đầy đủ tham số áp dụng cho từng bài. Kết quả nằm trong thư mục `--out`.
 Khi chạy lại, đổi tên thư mục từ `-01` sang `-02`… vì script không ghi đè thư mục đã tồn tại.
